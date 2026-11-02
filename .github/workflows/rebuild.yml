@@ -1,0 +1,22 @@
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      # Le rebuild est déclenché chez l'hébergeur (Vercel / Render),
+      # qui relance `npm run build` et donc `fetch:data`.
+      - name: Call the host deploy hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "DEPLOY_HOOK_URL is not set — nothing to trigger."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST "$DEPLOY_HOOK_URL"

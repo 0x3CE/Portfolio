@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+screenshots/
+test-results/
+playwright-report/
+
+.env
+.strava-probe/
+.env.local
+.DS_Store
+
+# Export Strava : donnees personnelles (logins, contacts, messages, traces GPS).
+# A ne jamais committer. Seul data/training.json, agrege, entre dans le repo.
+Strava_export/
+*_export/

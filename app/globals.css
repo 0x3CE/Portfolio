@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans text-body antialiased;
+    /* Grain très léger sur le papier : SVG noise, opacité 3,5 %. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-teal ring-offset-2 ring-offset-paper;
+  }
+}
+
+@layer components {
+  /* CTA biseauté : lumière en haut-gauche, ombre en bas-droite. */
+  .btn-bevel {
+    @apply inline-block border-2 border-ink px-5 py-2.5 font-medium text-ink transition-transform;
+    box-shadow:
+      inset 2px 2px 0 rgba(255, 255, 255, 0.55),
+      inset -2px -2px 0 rgba(35, 28, 21, 0.28);
+  }
+
+  .btn-bevel:active {
+    box-shadow:
+      inset -2px -2px 0 rgba(255, 255, 255, 0.55),
+      inset 2px 2px 0 rgba(35, 28, 21, 0.28);
+    transform: translateY(1px);
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12;
+  }
+
+  .marquee-track {
+    @apply flex w-max;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .marquee-track {
+    transform: none !important;
+  }
+}
