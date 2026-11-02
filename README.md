@@ -9,13 +9,14 @@ de design et de méthode sont dans [CLAUDE.md](CLAUDE.md).
 npm run dev                          # serveur local
 npm run fetch:data                   # contributions GitHub → data/contributions.json
 npm run build                        # fetch:data + build + export dans out/
-INCLUDE_STYLEGUIDE=1 npm run build   # idem, en gardant /styleguide pour la revue
+INCLUDE_STYLEGUIDE=1 npm run build   # idem, avec /styleguide pour la revue
 npm run lint                         # ESLint + tsc --noEmit
 npm run shots                        # Playwright : captures 1440px et 390px dans screenshots/
 npm run import:strava -- <csv>       # export Strava -> data/training.json
 ```
 
-`npm run build` retire `/styleguide` de `out/` sauf si `INCLUDE_STYLEGUIDE=1`.
+`/styleguide` (`app/styleguide/page.dev.tsx`) n'est compilé qu'en `npm run dev` ou avec
+`INCLUDE_STYLEGUIDE=1` : il n'existe dans aucun build de production, où qu'il soit déployé.
 
 ## Variables d'environnement
 

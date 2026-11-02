@@ -7,7 +7,6 @@
     "fetch:data": "tsx scripts/fetch-contributions.ts && tsx scripts/fetch-repo-activity.ts",
     "prebuild": "npm run fetch:data",
     "build": "next build",
-    "postbuild": "node scripts/strip-styleguide.mjs",
     "start": "npx --yes serve out -l 4321",
     "lint": "eslint . && tsc --noEmit",
     "shots": "playwright test",
